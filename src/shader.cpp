@@ -74,7 +74,7 @@ Shader Shader::create(const char *vertex_shader_path, const char *fragment_shade
 
 void Shader::destroy(const Shader &shader)
 {
-    Corsica::SHADER_LOGGER.debug("Destroying shader ID: ", shader.handle);
+    Corsica::SHADER_LOGGER.warn("Destroying shader ID: ", shader.handle);
     glDeleteProgram(shader.handle);
     glDeleteShader(shader.vs_handle);
     glDeleteShader(shader.fs_handle);

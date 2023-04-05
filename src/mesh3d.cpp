@@ -64,11 +64,15 @@ MeshData &Mesh3D::compile_mesh()
 
     this->vao = VAO::create();
     this->vbo = VBO::create(GL_ARRAY_BUFFER, false);
+    this->ebo = EBO::create(GL_ELEMENT_ARRAY_BUFFER, false);
 
     VAO::bind(this->vao);
-    VBO::bind(this->vbo);
 
+    VBO::bind(this->vbo);
     VBO::buffer(this->vbo, this->mesh_data.vertices, this->mesh_data.vertices.size());
+    
+    EBO::bind(this->ebo);
+    EBO::buffer(this->ebo, this->mesh_data.indices, this->mesh_data.indices.size());
 
     glVertexAttribPointer(0, this->mesh_data.vertex_size, GL_FLOAT, GL_FALSE, this->mesh_data.vertex_size * sizeof(f32), (void *) 0);
     glEnableVertexAttribArray(0);

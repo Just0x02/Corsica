@@ -1,4 +1,5 @@
 #include <corsica/texture.hpp>
+#include <corsica/corsica.hpp>
 
 #include <cstring>
 
@@ -41,6 +42,7 @@ Texture2D Texture2D::create_from_path(char *path)
 
 void Texture2D::destroy(const Texture2D &tex)
 {
+    Corsica::TEXTURE_LOGGER.warn("Destroying texture ID: ", tex.handle);
     glDeleteTextures(1, &tex.handle);
 }
 
