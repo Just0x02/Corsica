@@ -7,6 +7,7 @@
 #include <corsica/event_manager.hpp>
 #include <corsica/window.hpp>
 #include <corsica/mesh2d.hpp>
+#include <corsica/mesh3d.hpp>
 #include <corsica/debugger.hpp>
 
 #include <iostream>
@@ -61,16 +62,26 @@ int main(int argc, char** argv)
     Corsica::Mesh2D test_mesh = Corsica::Mesh2D(
         Corsica::Shader::create(
             "./res/shaders/simple_shader.vs", 
-            "./res/shaders/simple_shader.fs",
+            "./res/shaders/simple_shader_uv.fs",
             {
-                // { .index = 0, .name = "res" }
+                { .index = 0, .name = "res" }
             }
         ),
         Corsica::Texture2D()
     );
 
-    test_mesh.compile_mesh();
+    // Corsica::Mesh3D test_mesh = Corsica::Mesh3D(
+    //     Corsica::Shader::create(
+    //         "./res/shaders/simple_shader.vs", 
+    //         "./res/shaders/simple_shader.fs",
+    //         {
+    //             { .index = 0, .name = "res" }
+    //         }
+    //     ),
+    //     Corsica::Texture2D()
+    // );
 
+    test_mesh.compile_mesh();
 
     while (!glfwWindowShouldClose(instance.get_handle()))
     {

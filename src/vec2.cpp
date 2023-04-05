@@ -2,6 +2,7 @@
 #include <corsica/vec3.hpp>
 
 #include <cmath>
+#include <algorithm>
 
 using namespace Corsica;
 

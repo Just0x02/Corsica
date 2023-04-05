@@ -16,6 +16,7 @@ namespace Corsica
         Vec3();
         Vec3(f64 xyz);
         Vec3(f64 x, f64 y, f64 z);
+        Vec3(Vec2 base, f64 z);
 
         f64 length();
                 

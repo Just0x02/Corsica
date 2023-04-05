@@ -20,6 +20,11 @@ Vec3::Vec3(f64 x, f64 y, f64 z) : x(x), y(y), z(z)
 
 }
 
+Vec3::Vec3(Vec2 base, f64 z) : x(base.x), y(base.y), z(z)
+{
+
+}
+
 f64 Vec3::length()
 {
     return std::sqrt(this->x * this->x + this->y * this->y + this->z * this->z);

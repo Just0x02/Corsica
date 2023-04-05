@@ -2,8 +2,6 @@
 
 #include <types.h>
 
-#include <corsica/vec3.hpp>
-
 #include <string>
 #include <array>
 

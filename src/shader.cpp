@@ -94,3 +94,8 @@ void Shader::uniform_vec2(char *name, Vec2 vec)
 {
     glUniform2f(glGetUniformLocation(this->handle, name), (f32) vec.x, (f32) vec.y);
 }
+
+void Shader::uniform_vec3(char *name, Vec3 vec)
+{
+    glUniform3f(glGetUniformLocation(this->handle, name), (f32) vec.x, (f32) vec.y, (f32) vec.z);
+}

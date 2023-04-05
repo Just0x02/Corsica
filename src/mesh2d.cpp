@@ -20,16 +20,6 @@ Mesh2D::~Mesh2D()
 
 MeshData &Mesh2D::compile_mesh()
 {
-    // this->mesh_data.vertices = {
-    // // first triangle
-    //  0.5f,  0.5f,
-    //  0.5f, -0.5f,
-    // -0.5f,  0.5f, 
-    // // second triangle
-    //  0.5f, -0.5f,
-    // -0.5f, -0.5f,
-    // -0.5f,  0.5f,
-    // };
     this->mesh_data.vertices = {
         0.5f,  0.5f,
         0.5f, -0.5f,

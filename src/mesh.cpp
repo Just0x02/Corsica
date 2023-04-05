@@ -1,6 +1,7 @@
 #include <corsica/mesh.hpp>
 #include <corsica/debugger.hpp>
 #include <corsica/corsica.hpp>
+#include <corsica/window.hpp>
 
 using namespace Corsica;
 
@@ -40,9 +41,12 @@ void Mesh::draw_mesh()
 {
     if (this->config.use_wireframe)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     Shader::use(this->mesh_shader);
+    this->mesh_shader.uniform_vec2("res", Window::get_instance().get_size());
+
     VAO::bind(this->vao);
     glDrawElements(GL_TRIANGLES, this->mesh_data.indices.size(), GL_UNSIGNED_INT, 0);
-    // glDrawArrays(GL_TRIANGLES, 0, (size_t) (this->mesh_data.vertices.size() / this->mesh_data.vertex_size));
 }
