@@ -7,3 +7,4 @@ obj/*
 /bin
 ./bin
 bin/*
+data/log-newest.txt
