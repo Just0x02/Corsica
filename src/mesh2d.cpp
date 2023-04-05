@@ -32,10 +32,19 @@ MeshData &Mesh2D::compile_mesh()
         1, 2, 3 
     };
 
+    this->mesh_data.tex_coords = {
+        1.0f, 1.0f, // top right
+        1.0f, 0.0f, // bottom right
+        0.0f, 0.0f, // bottom left
+        0.0f, 1.0f  // top left 
+    };
+
     if (this->mesh_data.vertices.size() == 0)
         Corsica::MESH_LOGGER.warn("Attempting to compile a mesh with no vertices, is this a mistake?");
 
-    this->mesh_data.vertex_size = Mesh2D::VERTEX_SIZE;
+    this->mesh_data.vertex_size    = Mesh2D::VERTEX_SIZE;
+    this->mesh_data.color_size     = 4;
+    this->mesh_data.tex_coord_size = 2;
 
     this->vao = VAO::create();
     this->vbo = VBO::create(GL_ARRAY_BUFFER, false);
@@ -49,8 +58,17 @@ MeshData &Mesh2D::compile_mesh()
     EBO::bind(this->ebo);
     EBO::buffer(this->ebo, this->mesh_data.indices, this->mesh_data.indices.size());
 
+    // position attribute
     glVertexAttribPointer(0, this->mesh_data.vertex_size, GL_FLOAT, GL_FALSE, this->mesh_data.vertex_size * sizeof(f32), (void *) 0);
     glEnableVertexAttribArray(0);
+
+    // color attribute
+    glVertexAttribPointer(1, this->mesh_data.color_size, GL_FLOAT, GL_FALSE, this->mesh_data.color_size * sizeof(f32), (void *) 0);
+    glEnableVertexAttribArray(1);
+
+    // texture coord attribute
+    glVertexAttribPointer(2, this->mesh_data.tex_coord_size, GL_FLOAT, GL_FALSE, this->mesh_data.tex_coord_size * sizeof(f32), (void *) 0);
+    glEnableVertexAttribArray(2);
 
     VBO::unbind();
     VAO::unbind();

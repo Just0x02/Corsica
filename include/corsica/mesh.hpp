@@ -10,6 +10,7 @@
 #include <corsica/ebo.hpp>
 
 #include <corsica/vertex.hpp>
+#include <corsica/meshdata.hpp>
 
 #include <corsica/gfx.hpp>
 
@@ -18,16 +19,6 @@
 
 namespace Corsica
 {
-    struct MeshData
-    {
-        std::vector<f32> vertices;
-        std::vector<f32> colors;
-        std::vector<f32> tex_coords;
-        std::vector<u32> indices;
-
-        u32 vertex_size;
-    };
-
     struct MeshConfig
     {
         bool use_wireframe;
@@ -48,6 +39,7 @@ namespace Corsica
         virtual MeshData &compile_mesh() = 0;
         virtual void destroy_mesh();
         void draw_mesh();
+        void use_config(MeshConfig config);
 
         Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path, const std::string &tex_path);
         Mesh(Shader mesh_shader, Texture2D mesh_texture);

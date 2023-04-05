@@ -11,4 +11,5 @@ namespace Corsica
     extern Logger TEXTURE_LOGGER;
     extern Logger OPENGL_LOGGER;
     extern Logger FILEIO_LOGGER;
+    extern Logger CORSICA_LOGGER;
 };

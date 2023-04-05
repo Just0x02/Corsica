@@ -16,12 +16,14 @@ Mesh::Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path,
     this->mesh_texture = Texture2D::create_from_path(
         (char *) tex_path.c_str()
     );
+
+    this->config.use_wireframe = false;
 }
 
 
 Mesh::Mesh(Shader mesh_shader, Texture2D mesh_texture) : mesh_shader(mesh_shader), mesh_texture(mesh_texture)
 {
-
+    this->config.use_wireframe = false;
 }
 
 Mesh::~Mesh()
@@ -44,9 +46,16 @@ void Mesh::draw_mesh()
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+    Texture2D::bind(this->mesh_texture);
+
     Shader::use(this->mesh_shader);
     this->mesh_shader.uniform_vec2("res", Window::get_instance().get_size());
 
     VAO::bind(this->vao);
     glDrawElements(GL_TRIANGLES, this->mesh_data.indices.size(), GL_UNSIGNED_INT, 0);
+}
+
+void Mesh::use_config(MeshConfig config)
+{
+    this->config = config;
 }

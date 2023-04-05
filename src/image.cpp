@@ -1,4 +1,5 @@
 #include <corsica/image.hpp>
+#include <corsica/corsica.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -10,6 +11,7 @@ using namespace Corsica;
 
 Image::Image(const char *src_file_path)
 {
+    this->pixels = NULL;
     this->file_path = new char[std::strlen(src_file_path)];
     std::strcpy(this->file_path, src_file_path);
 
@@ -19,21 +21,23 @@ Image::Image(const char *src_file_path)
 Image::~Image()
 {
     stbi_image_free(this->pixels);
-    delete[] this->file_path;
 }
-
 
 void Image::load()
 {
-    if (this->pixels != nullptr)
+    Corsica::CORSICA_LOGGER.debug("Attempting to load image '", this->file_path, "' into memory...");
+
+    if (this->pixels != NULL)
         stbi_image_free(this->pixels);
 
-    stbi_set_flip_vertically_on_load(true);
+    // stbi_set_flip_vertically_on_load(true);
     this->pixels = stbi_load(this->file_path, &this->width, &this->height, &this->channels, STBI_rgb_alpha);
 
     if (this->pixels == NULL)
     {
+        Corsica::CORSICA_LOGGER.fatal("Error loading image '", this->file_path, "'...");
         exit(-1);
-        std::cout << "Error loading image: " << this->file_path << "." << std::endl;
     }
+
+    Corsica::CORSICA_LOGGER.debug("Sucessfully loaded image '", this->file_path, "' into memory!");
 }

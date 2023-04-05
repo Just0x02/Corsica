@@ -61,13 +61,13 @@ int main(int argc, char** argv)
 
     Corsica::Mesh2D test_mesh = Corsica::Mesh2D(
         Corsica::Shader::create(
-            "./res/shaders/simple_shader.vs", 
-            "./res/shaders/simple_shader_uv.fs",
+            "./res/shaders/basic_texture.vs", 
+            "./res/shaders/basic_texture.fs",
             {
                 { .index = 0, .name = "res" }
             }
         ),
-        Corsica::Texture2D()
+        Corsica::Texture2D::create_from_path("./res/images/default.png")
     );
 
     // Corsica::Mesh3D test_mesh = Corsica::Mesh3D(

@@ -79,6 +79,8 @@ EventManager &EventManager::clean_disabled_handlers()
             }), event_pair.second.end()
         );
     }
+
+    return *this;
 }
 
 

@@ -19,3 +19,7 @@ Corsica::Logger Corsica::TEXTURE_LOGGER = Corsica::Logger(
 Corsica::Logger Corsica::OPENGL_LOGGER = Corsica::Logger(
     Corsica::LogFlag::CORSICA | Corsica::LogFlag::OPENGL
 );
+
+Corsica::Logger Corsica::CORSICA_LOGGER = Corsica::Logger(
+    Corsica::LogFlag::CORSICA
+);

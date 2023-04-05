@@ -1,5 +1,5 @@
 CXX = g++
-C_FLAGS = -Wall -Wextra -pedantic -O3
+C_FLAGS = -Wall -Wextra -Wno-sign-compare -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-write-strings -O3
 CSTD = -std=c++23
 SRC_DIR = src
 OBJ_DIR = obj
