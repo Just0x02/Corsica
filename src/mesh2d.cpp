@@ -1,6 +1,5 @@
 #include <corsica/mesh2d.hpp>
-
-#include <iostream>
+#include <corsica/corsica.hpp>
 
 using namespace Corsica;
 
@@ -27,6 +26,9 @@ MeshData &Mesh2D::compile_mesh()
         0.0f,  0.5f,
     };
 
+    if (this->mesh_data.vertices.size() == 0)
+        Corsica::MESH_LOGGER.warn("Attempting to compile a mesh with no vertices, is this a mistake?");
+
     this->mesh_data.vertex_size = Mesh2D::VERTEX_SIZE;
 
     this->vao = VAO::create();
@@ -43,7 +45,7 @@ MeshData &Mesh2D::compile_mesh()
     VBO::unbind();
     VAO::unbind();
 
-    std::cout << "[CORSICA][DEBUG][MESH2D] Sucessfully compiled mesh with " << (this->mesh_data.vertices.size() / Mesh2D::VERTEX_SIZE) << " vertice(s)." << std::endl;
+    Corsica::MESH_LOGGER.debug("Sucessfully compiled 2d mesh with ", (this->mesh_data.vertices.size() / Mesh2D::VERTEX_SIZE), " vertices(s).");
 
     return this->mesh_data;
 }

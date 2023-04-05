@@ -23,6 +23,7 @@ namespace Corsica
         std::vector<f32> vertices;
         std::vector<f32> colors;
         std::vector<f32> tex_coords;
+        std::vector<u32> indices;
 
         u32 vertex_size;
     };
@@ -36,7 +37,6 @@ namespace Corsica
         VBO vbo;
         EBO ebo;
 
-        std::vector<u32> indices;
         MeshData mesh_data;
 
         virtual MeshData &compile_mesh() = 0;

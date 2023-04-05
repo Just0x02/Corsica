@@ -77,32 +77,32 @@ Logger::~Logger()
     this->file_stream.close();
 }
 
-Logger &Logger::info(const std::string &s)
+const Logger &Logger::info(const std::string &s)
 {
     return this->log(LogLevel::INFO, s);
 }
 
-Logger &Logger::debug(const std::string &s)
+const Logger &Logger::debug(const std::string &s)
 {
     return this->log(LogLevel::DEBUG, s);
 }
 
-Logger &Logger::warn(const std::string &s)
+const Logger &Logger::warn(const std::string &s)
 {
     return this->log(LogLevel::WARNING, s);
 }
 
-Logger &Logger::error(const std::string &s)
+const Logger &Logger::error(const std::string &s)
 {
     return this->log(LogLevel::ERROR, s);
 }
 
-Logger &Logger::fatal(const std::string &s)
+const Logger &Logger::fatal(const std::string &s)
 {
     return this->log(LogLevel::FATAL, s);
 }
 
-Logger &Logger::log(u8 log_level, const std::string &s)
+const Logger &Logger::log(u8 log_level, const std::string &s)
 {
     if (log_level <= Logging::LOG_LEVEL)
     {

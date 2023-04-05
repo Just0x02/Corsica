@@ -6,9 +6,9 @@
 
 namespace Corsica
 {
-    extern const Logger SHADER_LOGGER;
-    extern const Logger MESH_LOGGER;
-    extern const Logger TEXTURE_LOGGER;
-    extern const Logger OPENGL_LOGGER;
-    extern const Logger FILEIO_LOGGER;
+    extern Logger SHADER_LOGGER;
+    extern Logger MESH_LOGGER;
+    extern Logger TEXTURE_LOGGER;
+    extern Logger OPENGL_LOGGER;
+    extern Logger FILEIO_LOGGER;
 };

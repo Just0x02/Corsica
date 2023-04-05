@@ -1,5 +1,6 @@
 #include <corsica/mesh.hpp>
 #include <corsica/debugger.hpp>
+#include <corsica/corsica.hpp>
 
 using namespace Corsica;
 
@@ -29,8 +30,10 @@ Mesh::~Mesh()
 
 void Mesh::destroy_mesh()
 {
+    Corsica::MESH_LOGGER.debug("Destroying mesh shader & texture...");
     Shader::destroy(this->mesh_shader);
     Texture2D::destroy(this->mesh_texture);
+    Corsica::MESH_LOGGER.debug("Destroyed mesh shader & texture.");
 }
 
 void Mesh::draw_mesh()

@@ -32,10 +32,6 @@ silent-fast:
 	@make clean
 	@make -j32 C_FLAGS="-O0 -w"
 
-run:
-	@make -j32
-	@$(BUILD_TARGET)
-
 # CXX = g++
 # C_FLAGS = -Wall -Wextra -pedantic -O0
 # CSTD = -std=c++23

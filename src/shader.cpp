@@ -2,8 +2,7 @@
 #include <corsica/fio.hpp>
 
 #include <corsica/gfx.hpp>
-
-#include <iostream>
+#include <corsica/corsica.hpp>
 
 using namespace Corsica;
 
@@ -18,8 +17,7 @@ Shader::~Shader()
 
 GLint Shader::compile(const char *shader_path, GLenum type)
 {
-    
-    std::cout << "[CORSICA][SHADER][" << (type == GL_FRAGMENT_SHADER ? "FS" : "VS") << "] Compiling shader from path: '" << shader_path << "'" << std::endl;
+    Corsica::SHADER_LOGGER.debug((type == GL_FRAGMENT_SHADER ? "FS" : "VS"), ": Compiling shader from path: '", shader_path, "'");
 
     std::string shader_src = FileIO::read_file(shader_path);
     const char *shader_src_str = shader_src.c_str();
@@ -35,7 +33,7 @@ GLint Shader::compile(const char *shader_path, GLenum type)
 
     if (!compiled)
     {
-        std::cout << "Error occured when compiling shader: " << shader_path << std::endl;
+        Corsica::SHADER_LOGGER.fatal("Error occured when compiling shader: ", shader_path);
         exit(-1);
     }
 
@@ -65,19 +63,18 @@ Shader Shader::create(const char *vertex_shader_path, const char *fragment_shade
 
     if (!linked)
     {
-        std::cout << "Error linking shader program..." << std::endl;
+        Corsica::SHADER_LOGGER.fatal("Error linking shader program...");
         exit(-1);
     }
 
-    std::cout << "[CORSICA][SHADER] Created shader with PID:" << shader.handle << ", FSID:" << shader.fs_handle << ", VSID:" << shader.vs_handle << std::endl;
+    Corsica::SHADER_LOGGER.debug("Created shader with PID: ", shader.handle, ", FSID: ", shader.fs_handle, ", VSID: ", shader.vs_handle);
 
     return shader;
 }
 
 void Shader::destroy(const Shader &shader)
 {
-    
-    std::cout << "[CORSICA][SHADER] Destroying shader ID:" << shader.handle << std::endl;
+    Corsica::SHADER_LOGGER.debug("Destroying shader ID: ", shader.handle);
     glDeleteProgram(shader.handle);
     glDeleteShader(shader.vs_handle);
     glDeleteShader(shader.fs_handle);
@@ -85,7 +82,6 @@ void Shader::destroy(const Shader &shader)
 
 void Shader::use(const Shader &shader)
 {
-    // std::cout << "[CORSICA][SHADER] Binding shader ID:" << shader.handle << std::endl;
     glUseProgram(shader.handle);
 }
 

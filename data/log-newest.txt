@@ -1,1 +1,5 @@
-[13:26:50][INFO][CORSICA][WINDOW] Window has init'd
+[23:43:00][DEBUG][CORSICA][MESH] Sucessfully compiled 2d mesh with 3 vertices(s).
+[23:43:05][DEBUG][CORSICA][MESH] Destroying mesh shader & texture...
+[23:43:05][DEBUG][CORSICA][MESH] Destroyed mesh shader & texture.
+G][CORSICA][SHADERS] Created shader with PID: 3, FSID: 2, VSID: 1
+[23:43:05][DEBUG][CORSICA][SHADERS] Destroying shader ID: 3

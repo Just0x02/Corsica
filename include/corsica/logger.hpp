@@ -5,6 +5,9 @@
 #include <string>
 
 #include <fstream>
+#include <iostream>
+#include <ctime>
+#include <iomanip>
 
 #define __CORSICA_DEFAULT_LOG_DIR  "./data"
 #define __CORSICA_DEFAULT_LOG_FILE "log-newest.txt"
@@ -63,13 +66,24 @@ namespace Corsica
             Logger(u64 log_level);
             ~Logger();
 
-            Logger &info(const std::string &s);
-            Logger &debug(const std::string &s);
-            Logger &warn(const std::string &s);
-            Logger &error(const std::string &s);
-            Logger &fatal(const std::string &s);
+            const Logger &info(const std::string &s);
+            const Logger &debug(const std::string &s);
+            const Logger &warn(const std::string &s);
+            const Logger &error(const std::string &s);
+            const Logger &fatal(const std::string &s);
 
-            Logger &log(u8 log_level, const std::string &s);
+            template <typename T, typename... VT>
+            const Logger &info(const std::string &s, T arg_first, VT... args);
+            template <typename T, typename... VT>
+            const Logger &debug(const std::string &s, T arg_first, VT... args);
+            template <typename T, typename... VT>
+            const Logger &warn(const std::string &s, T arg_first, VT... args);
+            template <typename T, typename... VT>
+            const Logger &error(const std::string &s, T arg_first, VT... args);
+            template <typename T, typename... VT>
+            const Logger &fatal(const std::string &s, T arg_first, VT... args);
+
+            const Logger &log(u8 log_level, const std::string &s);
 
             Logger &set_log_flags(u64 flags);
 
@@ -80,4 +94,45 @@ namespace Corsica
             static std::ofstream open_log_file_stream(std::string log_dir, std::string log_file);
             static void log_static(u8 log_level, u64 log_flags, const std::string &s);
     };
+
+
+    template <typename T, typename... VT>
+    const Logger &Logger::info(const std::string &s, T arg_first, VT... args)
+    {
+        std::stringstream ss;
+        ss << s << arg_first;
+        return this->info(ss.str(), args...);
+    }
+
+    template <typename T, typename... VT>
+    const Logger &Logger::debug(const std::string &s, T arg_first, VT... args)
+    {
+        std::stringstream ss;
+        ss << s << arg_first;
+        return this->debug(ss.str(), args...);
+    }
+
+    template <typename T, typename... VT>
+    const Logger &Logger::warn(const std::string &s, T arg_first, VT... args)
+    {
+        std::stringstream ss;
+        ss << s << arg_first;
+        return this->warn(ss.str(), args...);
+    }
+
+    template <typename T, typename... VT>
+    const Logger &Logger::error(const std::string &s, T arg_first, VT... args)
+    {
+        std::stringstream ss;
+        ss << s << arg_first;
+        return this->error(ss.str(), args...);
+    }
+
+    template <typename T, typename... VT>
+    const Logger &Logger::fatal(const std::string &s, T arg_first, VT... args)
+    {
+        std::stringstream ss;
+        ss << s << arg_first;
+        return this->fatal(ss.str(), args...);
+    }
 };
