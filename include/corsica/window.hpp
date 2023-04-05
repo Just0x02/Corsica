@@ -37,6 +37,8 @@ namespace Corsica
             u64 get_ticks() const;
             u64 get_tps() const;
             u64 get_tick_remainder() const;
+            u64 get_start_time() const;
+            u64 get_time_since_start() const;
 
             Window &set_size(const Vec2 &size);
             Window &set_size(u32 width, u32 height);
@@ -69,6 +71,7 @@ namespace Corsica
             Mouse mouse;
             Keyboard keyboard;
     
+            u64 start_time;
             u64 last_second;
             u64 frames, fps, last_frame, frame_delta;
             u64 ticks, tps, tick_remainder;

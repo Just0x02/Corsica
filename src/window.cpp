@@ -103,6 +103,16 @@ u64 Window::get_tick_remainder() const
     return this->tick_remainder;
 }
 
+u64 Window::get_start_time() const
+{
+    return this->start_time;
+}
+
+u64 Window::get_time_since_start() const
+{
+    return Time::get_now_ns() - this->start_time;
+}
+
 Logger &Window::get_logger()
 {
     return Window::get_instance().logger;
@@ -222,12 +232,16 @@ void Window::destroy()
 void Window::tick()
 {
     Window::get_instance().ticks++;
+
+    EventManager::get_instance()
+        .dispatch("window_tick");
 }
 
 void Window::init()
 {
     Window &instance = Window::get_instance();
 
+    instance.start_time = Time::get_now_ns();
     instance.last_frame = Time::get_now_ns();
     instance.last_second = Time::get_now_ns();
 

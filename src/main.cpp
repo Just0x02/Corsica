@@ -46,8 +46,10 @@ int main(int argc, char** argv)
     Corsica::EventManager::get_instance()
         .subscribe_to("window_init", [](Corsica::EventContext &ctx) {
             Corsica::Window::get_logger().info("Window has init'd");
-            // std::cout << "Window has init'd" << std::endl;
         });
+        // .subscribe_to("window_tick", [](Corsica::EventContext &ctx) {
+        //     Corsica::Window::get_logger().info("TIME SINCE START: ", ((f64) Corsica::Window::get_instance().get_time_since_start()) / 1000000000.0);
+        // });
         // .subscribe_to("window_mouse_move", [](Corsica::EventContext &ctx) {
         //     Corsica::Mouse mouse = Corsica::Window::get_instance().get_mouse();
 
@@ -64,7 +66,9 @@ int main(int argc, char** argv)
             "./res/shaders/basic_texture.vs", 
             "./res/shaders/basic_texture.fs",
             {
-                { .index = 0, .name = "res" }
+                { .index = 0, .name = "res"  },
+                { .index = 1, .name = "tick" },
+                { .index = 2, .name = "time" }
             }
         ),
         Corsica::Texture2D::create_from_path("./res/images/default.png")

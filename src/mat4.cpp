@@ -4,12 +4,23 @@
 
 using namespace Corsica;
 
-Mat4::Mat4() : mat CORSICA_MAT4_DEFAULT_IDENTITY_MATRIX {}
-
-Mat4::Mat4(f32 mat[])
+Mat4::Mat4() 
 {
-    std::copy_n(mat, 16, this->mat);
+    this->use_matrix(CORSICA_MAT4_DEFAULT_IDENTITY_MATRIX);
 }
+
+Mat4::Mat4(const std::array<f32, 16> &mat)
+{
+    this->use_matrix(mat);
+}
+
+Mat4 &Mat4::use_matrix(const std::array<f32, 16> &mat)
+{
+    std::copy_n(mat.begin(), 16, this->mat);
+    
+    return *this;
+}
+
 
 Mat4 Mat4::operator*(const Mat4 &other) const
 {

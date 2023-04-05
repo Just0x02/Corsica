@@ -99,3 +99,13 @@ void Shader::uniform_vec3(char *name, Vec3 vec)
 {
     glUniform3f(glGetUniformLocation(this->handle, name), (f32) vec.x, (f32) vec.y, (f32) vec.z);
 }
+
+void Shader::uniform_int(char *name, i32 i)
+{
+    glUniform1i(glGetUniformLocation(this->handle, name), i);
+}
+
+void Shader::uniform_float(char *name, f32 flt)
+{
+    glUniform1f(glGetUniformLocation(this->handle, name), flt);
+}
