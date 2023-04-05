@@ -6,7 +6,7 @@
 
 using namespace Corsica;
 
-Window::Window() : logger(Corsica::LogFlag::CORSICA | Corsica::LogFlag::)
+Window::Window() : logger(Corsica::LogFlag::CORSICA | Corsica::LogFlag::WINDOW)
 {
     EventManager::get_instance()
         .register_event("window_init")
