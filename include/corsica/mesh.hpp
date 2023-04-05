@@ -28,6 +28,11 @@ namespace Corsica
         u32 vertex_size;
     };
 
+    struct MeshConfig
+    {
+        bool use_wireframe;
+    };
+
     struct Mesh
     {
         Shader mesh_shader;
@@ -38,6 +43,7 @@ namespace Corsica
         EBO ebo;
 
         MeshData mesh_data;
+        MeshConfig config;
 
         virtual MeshData &compile_mesh() = 0;
         virtual void destroy_mesh();

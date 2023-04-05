@@ -20,10 +20,26 @@ Mesh2D::~Mesh2D()
 
 MeshData &Mesh2D::compile_mesh()
 {
+    // this->mesh_data.vertices = {
+    // // first triangle
+    //  0.5f,  0.5f,
+    //  0.5f, -0.5f,
+    // -0.5f,  0.5f, 
+    // // second triangle
+    //  0.5f, -0.5f,
+    // -0.5f, -0.5f,
+    // -0.5f,  0.5f,
+    // };
     this->mesh_data.vertices = {
-        -0.5f, -0.5f,
+        0.5f,  0.5f,
         0.5f, -0.5f,
-        0.0f,  0.5f,
+        -0.5f, -0.5f,
+        -0.5f,  0.5f,
+    };
+
+    this->mesh_data.indices = {
+        0, 1, 3,
+        1, 2, 3 
     };
 
     if (this->mesh_data.vertices.size() == 0)
@@ -33,11 +49,15 @@ MeshData &Mesh2D::compile_mesh()
 
     this->vao = VAO::create();
     this->vbo = VBO::create(GL_ARRAY_BUFFER, false);
+    this->ebo = EBO::create(GL_ELEMENT_ARRAY_BUFFER, false);
 
     VAO::bind(this->vao);
-    VBO::bind(this->vbo);
 
+    VBO::bind(this->vbo);
     VBO::buffer(this->vbo, this->mesh_data.vertices, this->mesh_data.vertices.size());
+    
+    EBO::bind(this->ebo);
+    EBO::buffer(this->ebo, this->mesh_data.indices, this->mesh_data.indices.size());
 
     glVertexAttribPointer(0, this->mesh_data.vertex_size, GL_FLOAT, GL_FALSE, this->mesh_data.vertex_size * sizeof(f32), (void *) 0);
     glEnableVertexAttribArray(0);

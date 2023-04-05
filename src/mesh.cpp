@@ -38,7 +38,11 @@ void Mesh::destroy_mesh()
 
 void Mesh::draw_mesh()
 {
+    if (this->config.use_wireframe)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
     Shader::use(this->mesh_shader);
     VAO::bind(this->vao);
-    glDrawArrays(GL_TRIANGLES, 0, (size_t) (this->mesh_data.vertices.size() / this->mesh_data.vertex_size));
+    glDrawElements(GL_TRIANGLES, this->mesh_data.indices.size(), GL_UNSIGNED_INT, 0);
+    // glDrawArrays(GL_TRIANGLES, 0, (size_t) (this->mesh_data.vertices.size() / this->mesh_data.vertex_size));
 }
