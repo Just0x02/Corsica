@@ -9,6 +9,7 @@
 #include <corsica/mesh2d.hpp>
 #include <corsica/mesh3d.hpp>
 #include <corsica/debugger.hpp>
+#include <corsica/mouse_button_event.hpp>
 
 #include <iostream>
 
@@ -43,9 +44,25 @@
 
 int main(int argc, char** argv)
 {   
+    
     Corsica::EventManager::get_instance()
         .subscribe_to("window_init", [](Corsica::EventContext &ctx) {
             Corsica::Window::get_logger().info("Window has init'd");
+        })
+        .subscribe_to("window_mouse_button", [](Corsica::EventContext &ctx) {
+            Corsica::MouseButtonEvent *event = (Corsica::MouseButtonEvent *) ctx.raw_data;
+            Corsica::Window::get_logger().info("Mouse button pressed args => ", event->button, ", ", event->action, ", ", event->mods);
+
+            if (event->button == GLFW_MOUSE_BUTTON_1 && event->action == GLFW_PRESS)
+            {
+                Corsica::Window &instance = Corsica::Window::get_instance();
+
+                Corsica::Window::get_logger().debug("Window State Data:");
+                Corsica::Window::get_logger().debug("TICKS: ", instance.get_ticks());
+                Corsica::Window::get_logger().debug("FRAMES: ", instance.get_frames());
+                Corsica::Window::get_logger().debug("TIME START: ", instance.get_start_time());
+                Corsica::Window::get_logger().debug("TIME SINCE START: ", instance.get_time_since_start());
+            }
         });
         // .subscribe_to("window_tick", [](Corsica::EventContext &ctx) {
         //     Corsica::Window::get_logger().info("TIME SINCE START: ", ((f64) Corsica::Window::get_instance().get_time_since_start()) / 1000000000.0);
@@ -55,37 +72,22 @@ int main(int argc, char** argv)
 
         //     std::cout << "Mouse pos: " << mouse.position.as_string() << ", Delta: " << mouse.delta.as_string() << std::endl;
         // });
-
-
     Corsica::Window &instance = Corsica::Window::get_instance();
-
     instance.init();
 
     Corsica::Mesh2D test_mesh = Corsica::Mesh2D(
-        Corsica::Shader::create(
-            "./res/shaders/basic_texture.vs", 
-            "./res/shaders/basic_texture.fs",
-            {
-                { .index = 0, .name = "res"  },
-                { .index = 1, .name = "tick" },
-                { .index = 2, .name = "time" }
-            }
-        ),
-        Corsica::Texture2D::create_from_path("./res/images/default.png")
+        "./res/shaders/basic_texture.vs", 
+        "./res/shaders/basic_texture.fs",
+        {
+            { .index = 0, .name = "res"  },
+            { .index = 1, .name = "tick" },
+            { .index = 2, .name = "time" }
+        },
+        "./res/images/default.png"
     );
 
-    // Corsica::Mesh3D test_mesh = Corsica::Mesh3D(
-    //     Corsica::Shader::create(
-    //         "./res/shaders/simple_shader.vs", 
-    //         "./res/shaders/simple_shader.fs",
-    //         {
-    //             { .index = 0, .name = "res" }
-    //         }
-    //     ),
-    //     Corsica::Texture2D()
-    // );
-
     test_mesh.compile_mesh();
+
 
     while (!glfwWindowShouldClose(instance.get_handle()))
     {

@@ -1,6 +1,7 @@
 #include <corsica/window.hpp>
 #include <corsica/time.hpp>
 #include <corsica/event_manager.hpp>
+#include <corsica/mouse_button_event.hpp>
 
 #include <iostream>
 
@@ -218,7 +219,11 @@ void Window::mouse_button_change(GLFWwindow *handle, i32 button, i32 action, i32
     }
 
     EventManager::get_instance()
-        .dispatch("window_mouse_button");
+        .dispatch("window_mouse_button", (EventContext) {
+            .event_id = "window_mouse_button",
+            .raw_data = (u8 *) (new Corsica::MouseButtonEvent(button, action, mods)),
+            .allow_passthrough = true
+        });
 }
 
 void Window::destroy()

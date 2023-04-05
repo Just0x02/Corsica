@@ -3,7 +3,7 @@
 
 using namespace Corsica;
 
-Mesh3D::Mesh3D(const std::string &vs_shader_path, const std::string &fs_shader_path, const std::string &tex_path) : Mesh(vs_shader_path, fs_shader_path, tex_path)
+Mesh3D::Mesh3D(const std::string &vs_shader_path, const std::string &fs_shader_path, std::vector<VertexAttr> attributes, const std::string &tex_path) : Mesh(vs_shader_path, fs_shader_path, attributes, tex_path)
 {
 
 }

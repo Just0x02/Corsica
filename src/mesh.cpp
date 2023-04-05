@@ -5,16 +5,21 @@
 
 using namespace Corsica;
 
-Mesh::Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path, const std::string &tex_path)
+Mesh::Mesh()
+{
+    Corsica::MESH_LOGGER.warn("Empty mesh created with no shaders or texture2d, was this intentional?");
+}
+
+Mesh::Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path, std::vector<VertexAttr> attributes, const std::string &tex_path)
 {
     this->mesh_shader = Shader::create(
         vs_shader_path.c_str(), 
         fs_shader_path.c_str(),
-        {}
+        attributes
     );
 
     this->mesh_texture = Texture2D::create_from_path(
-        (char *) tex_path.c_str()
+        tex_path.c_str()
     );
 
     this->config.use_wireframe = false;
@@ -33,6 +38,12 @@ Mesh::~Mesh()
 
 void Mesh::destroy_mesh()
 {
+    if (this->mesh_shader.handle == 0 || this->mesh_texture.handle == 0)
+    {
+        Corsica::MESH_LOGGER.warn("Skipped destroying empty mesh...");
+        return;
+    }
+
     Corsica::MESH_LOGGER.warn("Destroying mesh shader & texture...");
     Shader::destroy(this->mesh_shader);
     Texture2D::destroy(this->mesh_texture);

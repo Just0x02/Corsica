@@ -66,6 +66,9 @@ EventManager &EventManager::dispatch(const std::string &event_id, EventContext c
             handler.cb(context);
     }
 
+    if (context.raw_data != NULL)
+        delete[] context.raw_data;
+
     return *this;
 }
 

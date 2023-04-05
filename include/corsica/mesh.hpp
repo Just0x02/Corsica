@@ -41,7 +41,8 @@ namespace Corsica
         void draw_mesh();
         void use_config(MeshConfig config);
 
-        Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path, const std::string &tex_path);
+        Mesh();
+        Mesh(const std::string &vs_shader_path, const std::string &fs_shader_path, std::vector<VertexAttr> attributes, const std::string &tex_path);
         Mesh(Shader mesh_shader, Texture2D mesh_texture);
         virtual ~Mesh();
     };

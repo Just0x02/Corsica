@@ -1,18 +1,19 @@
 #pragma once
 
 #include <types.h>
+#include <string>
 
 
 namespace Corsica
 {
     struct Image
     {
-        char *file_path;
+        std::string file_path;
 
         u8 *pixels;
         i32 width, height, channels;
 
-        Image(const char *src_file_paths);
+        Image(std::string src_file_paths);
         ~Image();
 
         void load();

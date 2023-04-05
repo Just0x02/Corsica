@@ -9,11 +9,9 @@
 
 using namespace Corsica;
 
-Image::Image(const char *src_file_path)
+Image::Image(std::string src_file_path) : file_path(src_file_path)
 {
     this->pixels = NULL;
-    this->file_path = new char[std::strlen(src_file_path)];
-    std::strcpy(this->file_path, src_file_path);
 
     this->load();
 }
@@ -31,7 +29,7 @@ void Image::load()
         stbi_image_free(this->pixels);
 
     // stbi_set_flip_vertically_on_load(true);
-    this->pixels = stbi_load(this->file_path, &this->width, &this->height, &this->channels, STBI_rgb_alpha);
+    this->pixels = stbi_load(this->file_path.c_str(), &this->width, &this->height, &this->channels, STBI_rgb_alpha);
 
     if (this->pixels == NULL)
     {

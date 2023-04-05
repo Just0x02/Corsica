@@ -35,7 +35,7 @@ Texture2D Texture2D::create_from_image(Image &image)
     return Texture2D::create_from_pixels(image.pixels, image.width, image.height);
 }
 
-Texture2D Texture2D::create_from_path(char *path)
+Texture2D Texture2D::create_from_path(std::string path)
 {
     Corsica::TEXTURE_LOGGER.debug("Loading image from path: '", path, "'");
     Image tex_image(path);

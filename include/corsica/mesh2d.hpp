@@ -19,7 +19,8 @@ namespace Corsica
 
         MeshData &compile_mesh();
 
-        Mesh2D(const std::string &vs_shader_path, const std::string &fs_shader_path, const std::string &tex_path);
+        Mesh2D();
+        Mesh2D(const std::string &vs_shader_path, const std::string &fs_shader_path, std::vector<VertexAttr> attributes, const std::string &tex_path);
         Mesh2D(Shader mesh_shader, Texture2D mesh_texture);
         ~Mesh2D();
     };
