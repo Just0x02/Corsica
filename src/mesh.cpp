@@ -50,6 +50,8 @@ void Mesh::draw_mesh()
 
     Shader::use(this->mesh_shader);
     this->mesh_shader.uniform_vec2("res", Window::get_instance().get_size());
+    this->mesh_shader.uniform_int("tick", Window::get_instance().get_ticks());
+    this->mesh_shader.uniform_float("time", Window::get_instance().get_time_since_start() / 1000000000.0);
 
     VAO::bind(this->vao);
     glDrawElements(GL_TRIANGLES, this->mesh_data.indices.size(), GL_UNSIGNED_INT, 0);
