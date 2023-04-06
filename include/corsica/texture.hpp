@@ -16,7 +16,7 @@ namespace Corsica
         Vec2 size;
         Vec2 uv_unit;
 
-        static Texture2D create_from_pixels(u8 *pixels, size_t width, size_t height);
+        static Texture2D create_from_pixels(u32 *pixels, size_t width, size_t height);
         static Texture2D create_from_image(Image &image);
         static Texture2D create_from_path(std::string path);
         

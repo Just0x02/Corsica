@@ -10,37 +10,14 @@
 #include <corsica/mesh3d.hpp>
 #include <corsica/debugger.hpp>
 #include <corsica/mouse_button_event.hpp>
+#include <corsica/ecs/ecs.hpp>
+#include <corsica/ecs/mesh_c.hpp>
+
+#include <libnoise/noise.h>
+#include <libnoise/noisegen.h>
+#include <libnoise/module/perlin.h>
 
 #include <iostream>
-
-
-// void error_callback(int error, const char* description)
-// {
-//     fprintf(stderr, "Error: %s\n", description);
-// }
-
-// void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-// {
-//     glViewport(0, 0, width, height);
-// }  
-
-// void processInput(GLFWwindow *window)
-// {
-//     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-//         glfwSetWindowShouldClose(window, true);
-// }
-
-// void displayMe(void)
-// {
-//     glClear(GL_COLOR_BUFFER_BIT);
-//     glBegin(GL_POLYGON);
-//         glVertex3f(0.5, 0.0, 0.5);
-//         glVertex3f(0.5, 0.0, 0.0);
-//         glVertex3f(0.0, 0.5, 0.0);
-//         glVertex3f(0.0, 0.0, 0.5);
-//     glEnd();
-//     glFlush();
-// }
 
 int main(int argc, char** argv)
 {   
@@ -75,18 +52,70 @@ int main(int argc, char** argv)
     Corsica::Window &instance = Corsica::Window::get_instance();
     instance.init();
 
-    Corsica::Mesh2D test_mesh = Corsica::Mesh2D(
-        "./res/shaders/basic_texture.vs", 
-        "./res/shaders/basic_texture.fs",
-        {
-            { .index = 0, .name = "res"  },
-            { .index = 1, .name = "tick" },
-            { .index = 2, .name = "time" }
-        },
-        "./res/images/default.png"
+    Corsica::ECS::Entity test_entity;
+
+    test_entity.add_component<Corsica::ECS::MeshComponent>(
+        new Corsica::Mesh2D(
+            "./res/shaders/basic_texture.vs", 
+            "./res/shaders/basic_texture.fs",
+            {
+                { .index = 0, .name = "res"  },
+                { .index = 1, .name = "tick" },
+                { .index = 2, .name = "time" }
+            },
+            "./res/images/default.png"
+        )
     );
 
-    test_mesh.compile_mesh();
+    // Corsica::Mesh2D test_mesh = Corsica::Mesh2D(
+    //     "./res/shaders/basic_texture.vs", 
+    //     "./res/shaders/basic_texture.fs",
+    //     {
+    //         { .index = 0, .name = "res"  },
+    //         { .index = 1, .name = "tick" },
+    //         { .index = 2, .name = "time" }
+    //     },
+    //     "./res/images/default.png"
+    // );
+
+    // test_mesh.compile_mesh();
+
+    // Corsica::Image noisy_img = Corsica::Image("./res/images/default.png");
+    // noise::module::Perlin pn = noise::module::Perlin();
+    // pn.SetSeed((u32) Corsica::Window::get_instance().get_time_since_start());
+    // Corsica::PerlinNoise pn = Corsica::PerlinNoise();
+
+    // for (u32 y = 0; y < noisy_img.height; y++)
+    // {
+    //     for (u32 x = 0; x < noisy_img.width; x++)
+    //     {
+    //         Corsica::RGBA rgba = Corsica::RGBA(255, 255, 255, 255);// Corsica::RGBA(noisy_img.pixels[y + noisy_img.width * x]);
+            
+    //         f64 noise = pn.GetValue(x / 10.0, y / 10.0, 1.0);
+
+    //         rgba.r *= noise;
+    //         rgba.g *= noise;
+    //         rgba.b *= noise;
+
+    //         // Corsica::Window::get_logger().debug("N: ", noise, " (", x, ", ", y, ")", " => ", rgba.as_string());
+
+    //         noisy_img.pixels[y + noisy_img.width * x] = (u32) rgba;
+    //     }
+    // }
+
+    // for (u32 pixel_idx = 0; pixel_idx < noisy_img.get_pixels_size(); pixel_idx += noisy_img.channels)
+    // {
+    //     u8 &r = noisy_img.pixels[pixel_idx + 0];
+    //     u8 &g = noisy_img.pixels[pixel_idx + 1];
+    //     u8 &b = noisy_img.pixels[pixel_idx + 2];
+    //     u8 &a = noisy_img.pixels[pixel_idx + 3];
+
+    //     r *= pn.noise(pixel_idx + 0, pixel_idx + 1, pixel_idx + 2);
+    //     g *= pn.noise(pixel_idx + 1, pixel_idx + 2, pixel_idx + 0);
+    //     b *= pn.noise(pixel_idx + 0, pixel_idx + 2, pixel_idx + 1);
+    // }
+
+    // noisy_img.write_to_file("./lol.png");
 
 
     while (!glfwWindowShouldClose(instance.get_handle()))
@@ -96,7 +125,8 @@ int main(int argc, char** argv)
 
         Corsica::Window::tick();
 
-        test_mesh.draw_mesh();
+        test_entity.get_component<Corsica::ECS::MeshComponent>().mesh->draw_mesh();
+        // test_mesh.draw_mesh();
 
         glfwSwapBuffers(instance.get_handle());
         glfwPollEvents();

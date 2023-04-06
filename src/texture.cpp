@@ -5,7 +5,7 @@
 
 using namespace Corsica;
 
-Texture2D Texture2D::create_from_pixels(u8 *pixels, size_t width, size_t height)
+Texture2D Texture2D::create_from_pixels(u32 *pixels, size_t width, size_t height)
 {
     Texture2D tex;
 
@@ -28,10 +28,6 @@ Texture2D Texture2D::create_from_pixels(u8 *pixels, size_t width, size_t height)
 
 Texture2D Texture2D::create_from_image(Image &image)
 {
-    // size_t img_total_size = image.width * image.height * 4;
-    // u8 *pixels_cpy = new u8[img_total_size];
-    // memcpy(pixels_cpy, image.pixels, img_total_size);
-
     return Texture2D::create_from_pixels(image.pixels, image.width, image.height);
 }
 

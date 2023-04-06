@@ -22,7 +22,7 @@ printf "${YELLOW}Installing required C/C++ headers and dependencies...${NC}\n"
 
 printf "${YELLOW}Installing misc. libraries for C++ ${NC}"
 start=`date +%s%N`
-apt-get -y -qq install cmake build-essential g++ autotools-dev libicu-dev libbz2-dev
+apt-get -y -qq install cmake build-essential g++ autotools-dev libicu-dev libbz2-dev libnoise-dev
 end=`date +%s%N`
 printf "${GREEN} => Finished in $(expr $end / 1000000 - $start / 1000000)MS!${NC}\n"
 

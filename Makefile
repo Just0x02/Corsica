@@ -6,7 +6,7 @@ OBJ_DIR = obj
 BIN_DIR = bin
 SRCS := $(shell find $(SRC_DIR) -type f -name '*.c' -o -name '*.cpp')
 OBJS := $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRCS:%.cpp=%.o))
-LD_FLAGS = -lGLEW -lglfw -lGL -I ./include -L ./lib
+LD_FLAGS = -lGLEW -lglfw -lGL -lnoise -I ./include -L ./lib
 BUILD_TARGET = $(BIN_DIR)/main
 
 all: $(BUILD_TARGET)

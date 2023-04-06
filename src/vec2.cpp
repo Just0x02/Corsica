@@ -108,6 +108,11 @@ Vec2 &Vec2::clamp_xy(f64 min, f64 max)
     return this->clamp_x(min, max).clamp_y(min, max);
 }
 
+Vec2 Vec2::lerp(const Vec2 &other, f32 t)
+{
+    
+}
+
 // Vec2::operator Vec3()
 // {
 //     return Vec3(this->x, this->y, 0.0);

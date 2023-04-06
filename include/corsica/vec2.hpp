@@ -4,6 +4,7 @@
 
 #include <string>
 #include <array>
+#include <algorithm>
 
 namespace Corsica
 {
@@ -21,6 +22,8 @@ namespace Corsica
         Vec2 sub(const Vec2 &other);
         Vec2 mul(const Vec2 &other);
         Vec2 div(const Vec2 &other);
+
+        Vec2 lerp(const Vec2 &other, f32 t);
         
         Vec2 &normalize();
         Vec2 &round();

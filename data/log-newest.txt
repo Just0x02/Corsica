@@ -1,6 +1,2 @@
-[08:44:43][DEBUG][CORSICA][MESH] Sucessfully compiled 2d mesh with 4 vertices(s).
-[08:44:48][WARNING][CORSICA][MESH] Destroying mesh shader & texture...
-[08:44:48][WARNING][CORSICA][MESH] Destroyed mesh shader & texture.
-RE] Destroying texture ID: 1
-er with PID: 3, FSID: 2, VSID: 1
-[08:44:48][WARNING][CORSICA][SHADERS] Destroying shader ID: 3
+[02:30:42][DEBUG][CORSICA] Attempting to load image './res/images/default.png' into memo[02:30:42][DEBUG][CORSICA][TEXTURE] Sucessfully loaded image from path: './res/images/default.png'[02:30:42][WARNING][CORSICA] Freeing image './res/images/default.png' from memory...
+ 2, VSID: 1
